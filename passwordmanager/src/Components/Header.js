@@ -23,6 +23,7 @@ const styles = {
  */
 const Header = () => (
   <AppBar
+  showMenuIconButton={false}
     title={<span style={styles.title}>REACT REDUX PASSWORD MANAGER</span>}
     onTitleTouchTap={handleTouchTap}
     iconElementRight={

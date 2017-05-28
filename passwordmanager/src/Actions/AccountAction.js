@@ -1,13 +1,16 @@
 
 import axios from 'axios'
-
+import moment from 'moment'
 
 export function addAccount(url,username,password){
+          let now = moment();
+        let createdat = now.format("D MMMM YYYY, h:mm:ss a")
       return dispatch =>{
     axios.post('http://localhost:3004/accounts',{
         url,
         username,
-        password
+        password,
+        createdat
     })
     .then(function(response){
         dispatch({
@@ -15,7 +18,8 @@ export function addAccount(url,username,password){
     payload: {
         url,
         username,
-        password
+        password,
+        createdat
     }
   })
     })
@@ -46,9 +50,34 @@ export function deleteAccount(id){
   }
 }
 
-export function editAccount(id){
-  return{
-    type : "MARKED",
-    payload: id
+export function editAccount(id,url,username,password,createdat){
+    let now = moment();
+        let updatedat = now.format("D MMMM YYYY, h:mm:ss a")
+
+
+        return dispatch => {
+    axios.put(`http://localhost:3004/accounts/${id}`,{
+            url,
+      username,
+      password,
+      createdat,
+      updatedat
+    })
+    .then(function(response){
+      dispatch({
+    type : "EDIT",
+    payload: {
+      id,
+      url,
+      username,
+      password,
+      createdat,
+      updatedat
+    }
+  })
+    })
   }
+
+
+
 }
