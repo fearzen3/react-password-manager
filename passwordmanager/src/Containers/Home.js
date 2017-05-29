@@ -20,25 +20,21 @@ const style = {
 };
 
 const styles2 = {
-  div:{
-    display: 'flex',
-    flexDirection: 'row wrap',
-    padding: 20,
-    width: '100%'
-  },
-  paperLeft:{
-    flex: 1,
-    height: '100%',
-    margin: 10,
-    textAlign: 'center',
-    padding: 10
-  },
-  paperRight:{
-    height: 600,
-    flex: 4,
-    margin: 10,
-    textAlign: 'center',
-  }
+  // display: 'inline-block',
+  float:'left',
+      // position: 'relative',
+    right: '0px',
+    width: '300px',
+    padding: '10px'
+};
+
+const styles3 = {
+  display: 'inline-block',
+  float:'auto',
+      // position: 'relative',
+    right: '0px',
+    width: '300px',
+    padding: '10px'
 };
 
 class Home extends Component {  
@@ -56,6 +52,7 @@ class Home extends Component {
 }
     
     _onRowSelection(e) {
+      console.log(e)
       let rowNumber = e[0]
       let dataId 
       let accData
@@ -74,14 +71,7 @@ class Home extends Component {
       })
     }
 
-    handleClickDelete=()=>{
-            if(this.state.id!==null){
-        this.props.DeleteAccount(this.state.id)
-        this.setState({
-          selectedRow:null
-        })
-      } 
-    }
+
 
     handleSubmit=(e)=>{
       e.preventDefault();
@@ -90,6 +80,14 @@ class Home extends Component {
       })
     }
 
+        handleClickDelete=()=>{
+            if(this.state.id!==null){
+        this.props.DeleteAccount(this.state.id)
+        this.setState({
+          selectedRow:null
+        })
+      } 
+    }
           handleInputChange=(event)=> {
     const target = event.target;
     const value = event.target.value
@@ -113,13 +111,15 @@ class Home extends Component {
         <div>
         <h1>HOME</h1>
 
-        <div >
-          <form onSubmit={this.handleSubmit} >
+        
+          <form onSubmit={this.handleSubmit} style={styles2} >
            <TextField onChange={this.handleInputChange} name='searchbox'hintText="Search Username"/><br />
         </form>
+        <div style={styles3}>
+
         <UpdateModal Account={this.state.accountData}  />
         <RaisedButton label="Delete" secondary={true} style={style} onClick={()=>this.handleClickDelete()}/>
-          </div>
+            </div>
         
           <Table onRowSelection={(e)=>this._onRowSelection(e)}>
     <TableHeader>
